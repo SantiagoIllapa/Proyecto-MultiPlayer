@@ -17,6 +17,7 @@ namespace Com.Saint.MyGame
 
         [Tooltip("The prefab to use for representing the player")]
         public GameObject playerPrefab;
+       
 
         #endregion
 
@@ -33,11 +34,13 @@ namespace Com.Saint.MyGame
             }
             else
             {
+               
                 if (PlayerManager.LocalPlayerInstance == null)
                 {
                     Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
                     // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                    GameObject player=PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                    
+                    GameObject player =PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
                     player.GetComponent<PlayerManager>().username = PhotonNetwork.LocalPlayer.NickName;
                 }
                 else

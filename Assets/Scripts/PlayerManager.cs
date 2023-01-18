@@ -28,6 +28,7 @@ namespace Com.Saint.MyGame
         void Start()
         {
             userText.text = username;
+            //upointsText.text = "Puntaje: "+points;
             rg = GetComponent<Rigidbody>();
             if (photonView.IsMine)
             {
@@ -101,9 +102,10 @@ namespace Com.Saint.MyGame
             
             if (collision.gameObject.tag == "Point")
             {
+               
                 if (photonView.IsMine)
                 {
-                    collision.gameObject.SetActive(false);
+                   
                     points += 10;
                     upointsText.text = "Puntaje: " + points;
                 }
@@ -143,9 +145,12 @@ namespace Com.Saint.MyGame
             if (stream.IsWriting)
             {
                 stream.SendNext(username);
+                stream.SendNext(upointsText);
             }else if (stream.IsReading)
             {
                 username=(string)stream.ReceiveNext();
+                points=(int)stream.ReceiveNext();
+                upointsText.text = "Puntaje: " + points;
                 userText.text = username;
             }
         }
